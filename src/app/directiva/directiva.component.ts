@@ -5,11 +5,12 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './directiva.component.html',
   styleUrls: ['./directiva.component.css']
 })
-export class DirectivaComponent implements OnInit {
+export class DirectivaComponent{
+ listaCursos: string[]=['TypeScript','JavaScript','Java SE','C#','PHP']
+ habilitar:boolean=true;
+ setHabilitar(): void{
+   this.habilitar= (this.habilitar) ? false : true;
+ }
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }
