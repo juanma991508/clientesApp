@@ -12,8 +12,8 @@ import { RouterModule,Routes } from "@angular/router";
 
 const routes:Routes =[
 {path:'',redirectTo:'/clientes',pathMatch:'full'},
-{path:'directivas',redirectTo: DirectivaComponent},
-{path:'clientes',redirectTo: ClientesComponent}
+{path:'directivas',component: DirectivaComponent},
+{path:'clientes',component: ClientesComponent}
 ];
 
 @NgModule({
@@ -27,7 +27,8 @@ const routes:Routes =[
 
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [ClienteService],
   bootstrap: [AppComponent]
