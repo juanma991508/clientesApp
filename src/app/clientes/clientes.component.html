@@ -21,8 +21,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let cliente of clientes"><td>
-        {{cliente.id}}
+      <tr *ngFor="let cliente of clientes">
+        <td>
+       <button  type="button" name="ver" [routerLink]="['/clientes/ver', cliente.id]"
+       routerLinkActive="router-link-active" class="btn btn-primary btn-sm">{{cliente.id}}</button>
       </td>
       <td>
         {{cliente.nombre | uppercase }}

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { formatDate } from "@angular/common";
-import { CLIENTES } from "./clientes.json";
+//import { CLIENTES } from "./clientes.json";
 import { Cliente } from "./cliente";
 import { Observable,of,catchError,throwError } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
@@ -90,7 +90,21 @@ deleteCliente(id : number):Observable<Cliente>{
     })
   )
 }
+subirFoto(file:File,id):Observable<Cliente>{
+  let formData=new FormData();
+  formData.append("file",file);
+  formData.append("id",id);
+  return this.http.post(`${this.urlEndPoint}/upload`,formData).pipe(
+    map((response :any)=> response.cliente as Cliente ),
+    catchError(e=>{
+     // this.router.navigate(['/clientes']);
+      console.error(e.error.mensaje);
+      swal.fire(e.error.mensaje,e.error.error,'error');
+      return throwError(e);
+    })
 
+  )
+}
 
 
 
