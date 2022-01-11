@@ -3,11 +3,12 @@ import { formatDate } from "@angular/common";
 //import { CLIENTES } from "./clientes.json";
 import { Cliente } from "./cliente";
 import { Observable,of,catchError,throwError } from "rxjs";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpRequest,HttpEvent } from "@angular/common/http";
 import { map,tap } from "rxjs/operators";
 import swal from "sweetalert2";
 
 import { Router } from "@angular/router";
+import { Region } from "./region";
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,9 @@ private urlEndPoint:string='http://localhost:8080/api/clientes';
 private httpHeaders= new HttpHeaders({'Content-Type': 'application/json'});
 
   constructor(private http: HttpClient , private router:Router) { }
-
+getRegiones(): Observable<Region[]>{
+ return this.http.get<Region[]>(`${this.urlEndPoint}/regiones`);
+}
 
   getClientes(page: number): Observable<any>{
     //return of(CLIENTES);
@@ -90,11 +93,18 @@ deleteCliente(id : number):Observable<Cliente>{
     })
   )
 }
-subirFoto(file:File,id):Observable<Cliente>{
+subirFoto(file:File,id):Observable<HttpEvent<{}>>{
   let formData=new FormData();
   formData.append("file",file);
   formData.append("id",id);
-  return this.http.post(`${this.urlEndPoint}/upload`,formData).pipe(
+
+const req=new HttpRequest('POST',`${this.urlEndPoint}/upload`,formData,{
+  reportProgress: true
+});
+
+  return this.http.request(req);
+  /**
+  .pipe(
     map((response :any)=> response.cliente as Cliente ),
     catchError(e=>{
      // this.router.navigate(['/clientes']);
@@ -103,7 +113,7 @@ subirFoto(file:File,id):Observable<Cliente>{
       return throwError(e);
     })
 
-  )
+  ) */
 }
 
 
