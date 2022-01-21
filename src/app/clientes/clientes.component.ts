@@ -4,6 +4,7 @@ import { ModalService } from "./detalle/modal.service";
 import { ClienteService } from "./cliente.service";
 import  swal  from "sweetalert2";
 import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from "../usuarios/auth.service";
 @Component({
   selector: 'app-clientes',
   templateUrl: './clientes.component.html',
@@ -13,7 +14,11 @@ export class ClientesComponent implements OnInit {
  clientes:Cliente[];
  paginador:any;
   clienteSeleccionado:Cliente;
-  constructor(private clienteService: ClienteService,private activateRoute: ActivatedRoute, private modalService:ModalService) { }
+
+  constructor(private clienteService: ClienteService,
+  private activateRoute: ActivatedRoute,
+   private modalService:ModalService,
+   public authService:AuthService) { }
 
   ngOnInit(): void {
     this.activateRoute.paramMap.subscribe( params =>{

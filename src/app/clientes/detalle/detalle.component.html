@@ -17,11 +17,11 @@
                 <li class="list-group-item">{{cliente.createAt | date:"fullDate"}}</li>
                 <li class="list-group-item">{{cliente.region.nombre}}</li>
               </ul>
-              <div class="mb-3">
+              <div *ngIf="authService.hasRole('ROLE_ADMIN')" class="mb-3"  >
                 <label for="formFile" class="form-label">Seleccionar foto</label>
                 <input class="form-control" type="file" id="formFile" (change)="seleccionarFoto($event)">
               </div>
-              <div class="input-group-append mb-3">
+              <div  *ngIf="authService.hasRole('ROLE_ADMIN')"  class="input-group-append mb-3">
                 <button class="btn btn-outline-secondary" type="button" id="butonsubirfoto" [disabled]="!imagenSeleccionada" (click)="subirFoto()">Subir
                   Foto</button>
               </div>
