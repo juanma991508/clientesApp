@@ -14,7 +14,8 @@ export class AuthService {
     if(this._usuario!=null){
       return this._usuario;
     }else if(this._usuario==null && sessionStorage.getItem('usuario') != null){
-      JSON.parse(sessionStorage.getItem('usuario')) as Usuario;
+
+    this._usuario= JSON.parse(sessionStorage.getItem('usuario')) as Usuario;
       return this._usuario;
     }
     return new Usuario();
@@ -77,7 +78,7 @@ export class AuthService {
   }
 
   hasRole(role:string):boolean{
-    if(this.usuario.roles.includes(role)){
+    if(this.usuario?.roles.includes(role)){
       return true;
     }
     return false;

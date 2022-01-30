@@ -35,6 +35,45 @@
               <img *ngIf="cliente?.foto" src="http://localhost:8080/api/uploads/img/{{cliente.foto}}" alt="{{cliente.foto}}" class="img-thumbnail rounded" >
             </div>
           </div>
+          <div *ngIf="authService.hasRole('ROLE_ADMIN')"   class="row">
+            <button type="button" [routerLink]="['/facturas/form', cliente.id]"
+          routerLinkActive="router-link-active" class="btn btn-success btn-sm">Crear</button>
+          </div>
+          <div class="row">
+            <div class="alert alert-info my-4" *ngIf="!cliente.facturas?.length">
+              No hay facturas asignadas para el cliente {{cliente.nombre}} {{cliente.apellido}}
+            </div>
+            <table class="table table-bordered table-striped my-4" *ngIf="cliente.facturas?.length">
+              <thead>
+                <tr>
+                  <th>
+                    #
+                  </th>
+                  <th>
+                    Descripción
+                  </th>
+                  <th>
+                    Fecha
+                  </th>
+                  <th>Total</th>
+                  <th>Detalle</th>
+                  <th *ngIf="authService.hasRole('ROLE_ADMIN')"   >Eliminar</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let factura of cliente.facturas">
+                  <td>{{factura.id}}</td>
+                  <td>{{factura.descripcion}}</td>
+                  <td>{{factura.createAt}}</td>
+                  <td>{{factura.total}}</td>
+                  <td><button class="btn btn-primary btn-sm" type="button" [routerLink]="['/facturas',factura.id]" routerLinkActive="router-link-active" >Ver</button> </td>
+                  <td *ngIf="authService.hasRole('ROLE_ADMIN')"  ><button type="button" name="eliminar" class="btn btn-danger btn-sm"
+                    (click)="delete(factura)">Eliminar</button>
+                   </td>
+               </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
       <div class="modal-footer">
