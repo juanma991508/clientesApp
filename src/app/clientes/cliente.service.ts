@@ -13,12 +13,13 @@ import swal from 'sweetalert2';
 
 import { Router } from '@angular/router';
 import { Region } from './region';
+import { URL_BACKEND } from "../config/config";
 
 @Injectable({
   providedIn: 'root',
 })
 export class ClienteService {
-  private urlEndPoint: string = 'http://localhost:8080/api/clientes';
+  private urlEndPoint: string = URL_BACKEND +'/api/clientes';
 
 
   constructor(private http: HttpClient, private router: Router) {}

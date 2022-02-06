@@ -5,11 +5,12 @@ import {
 import { Observable, of, catchError, throwError } from 'rxjs';
 import { Factura } from "../models/factura";
 import { Producto } from "../models/producto";
+import { URL_BACKEND } from "../../config/config";
 @Injectable({
   providedIn: 'root'
 })
 export class FacturasService {
-  private urlEndPoint:string="http://localhost:8080/api/facturas"
+  private urlEndPoint:string= URL_BACKEND +"/api/facturas"
   constructor(private http: HttpClient) {}
   getFactura(id: number):Observable<Factura>{
     return this.http.get<Factura>(this.urlEndPoint+'/'+id);

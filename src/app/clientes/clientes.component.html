@@ -28,10 +28,10 @@
         <tr *ngFor="let cliente of clientes">
           <td *ngIf="authService.hasRole('ROLE_USER')" >
             <img *ngIf="cliente?.foto" (click)="abrirModal(cliente)"
-              src="http://localhost:8080/api/uploads/img/{{cliente.foto}}" alt="{{cliente.foto}}" style="width: 40px; cursor: pointer;"
+              src="${{urlBackend}}/api/uploads/img/{{cliente.foto}}" alt="{{cliente.foto}}" style="width: 40px; cursor: pointer;"
               class="img-thumbnail rounded">
               <img *ngIf="!cliente?.foto" (click)="abrirModal(cliente)"
-              src="http://localhost:8080/images/nouser.png" alt="nouser" style="width: 40px; cursor: pointer;"
+              src="${{urlBackend}}/images/nouser.png" alt="nouser" style="width: 40px; cursor: pointer;"
               class="img-thumbnail rounded">
           </td>
           <td>
